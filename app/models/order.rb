@@ -1,4 +1,7 @@
 class Order < ApplicationRecord
+  scope :unshipped, -> { where(shipped_at: nil) }
+  scope :shipped, -> { where.not(shipped_at: nil).order(shipped_at: :desc) }
+
   def expedited?
     @expedite
   end

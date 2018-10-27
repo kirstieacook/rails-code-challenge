@@ -32,4 +32,25 @@ RSpec.describe Order, type: :model do
       it { is_expected.to be_warehoused }
     end
   end
+
+  describe 'scopes' do
+    let!(:shipped_order) { Order.create!(shipped_at: Time.now) }
+    let!(:unshipped_order) { Order.create! }
+
+    describe '.shipped' do
+      it 'only returns the shipped order' do
+        expect(Order.shipped.count).to eq(1)
+        expect(Order.shipped).to include(shipped_order)
+        expect(Order.shipped).not_to include(unshipped_order)
+      end
+    end
+
+    describe '.unshipped' do
+      it 'only returns the unshipped order' do
+        expect(Order.unshipped.count).to eq(1)
+        expect(Order.unshipped).to include(unshipped_order)
+        expect(Order.unshipped).not_to include(shipped_order)
+      end
+    end
+  end
 end
