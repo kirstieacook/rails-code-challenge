@@ -13,12 +13,18 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(params[:order])
+    @order = Order.new(order_params)
 
     if @order.save
       redirect_to @order
     else
       render action: 'new'
     end
+  end
+
+  private
+
+  def order_params
+    params.require(:order).permit(line_items_attributes: [:id, :widget_id, :quantity, :unit_price, :_destroy])
   end
 end
