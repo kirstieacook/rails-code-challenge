@@ -53,4 +53,24 @@ RSpec.describe Order, type: :model do
       end
     end
   end
+
+  describe 'associations' do
+    let(:widget) { Widget.create!(name: Faker::Appliance.equipment) }
+    let(:unit_price) { Faker::Number.number(2) }
+    let(:order) do
+      Order.create!(
+        line_items_attributes: [
+          widget_id: widget.id,
+          unit_price: unit_price
+        ]
+      )
+    end
+
+    it 'should create associated LineItems' do
+      expect(order).to be_valid
+      expect(order.line_items.count).to eq(1)
+      expect(order.line_items.first.widget_id).to eq(widget.id)
+      expect(order.line_items.first.unit_price).to eq(unit_price.to_i)
+    end
+  end
 end
