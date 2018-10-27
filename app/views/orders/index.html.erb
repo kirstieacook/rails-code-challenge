@@ -15,7 +15,7 @@
 
     <ul>
     <% @shipped_orders.each do |order| %>
-      <li><%= link_to order.id, order_path(order) %></li>
+      <li><%= link_to order.id, order_path(order) %>, shipped at: <%= order.shipped_at%></li>
     <% end %>
     </ul>
 
