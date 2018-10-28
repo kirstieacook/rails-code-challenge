@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  resources :orders, only: [:index, :show, :new, :create]
+  resources :orders, only: [:index, :show, :new, :create, :edit, :update]
 end

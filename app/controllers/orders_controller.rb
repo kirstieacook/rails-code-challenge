@@ -23,6 +23,20 @@ class OrdersController < ApplicationController
     end
   end
 
+  def edit
+    @order = Order.find(params[:id])
+  end
+
+  def update
+    @order = Order.find(params[:id])
+
+    if @order.update_attributes(order_params)
+      redirect_to @order
+    else
+      render action: 'edit'
+    end
+  end
+
   private
 
   def order_params

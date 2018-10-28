@@ -6,11 +6,17 @@
     <h1>Order <%= @order.id %></h1>
 
     <p>Created <%= @order.created_at %></p>
-    <p>Shipped <%= @order.shipped_at %></p>
+    <% if @order.shipped_at.present? %>
+      <p>Shipped <%= @order.shipped_at %></p>
+    <% end %>
 
     <% @order.line_items.each do |item| %>
       <li><%= item.widget.name %>: <%= item.quantity %> @ $<%= item.unit_price %>/ea</li>
     <% end %>
+
+    <p>
+      <%= link_to 'Edit Order', edit_order_path(@order) %>
+    </p>
 
     <p>
       <%= link_to 'Back to Orders', orders_path %>

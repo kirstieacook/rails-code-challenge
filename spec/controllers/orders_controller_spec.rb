@@ -45,4 +45,56 @@ RSpec.describe OrdersController, type: :controller do
       it { is_expected.to have_http_status(:ok) } # We're rendering #new if the order create fails.
     end
   end
+
+  describe '#update' do
+    let(:widget) { Widget.create!(name: Faker::Appliance.equipment) }
+    let(:order) do
+      Order.create!(
+        line_items_attributes: [
+          {
+            widget_id: widget.id,
+            unit_price: Faker::Number.number(2)
+          },
+          {
+            widget_id: widget.id,
+            unit_price: Faker::Number.number(2)
+          }
+        ]
+      )
+    end
+    let(:valid_params) do
+      {
+        id: order.id,
+        order: {
+          line_items_attributes: [
+            {
+              widget_id: widget.id,
+              unit_price: Faker::Number.number(2)
+            }
+          ]
+        }
+      }
+    end
+    let(:invalid_params) do
+      {
+        id: order.id,
+        order: {
+          line_items_attributes: [
+            widget_id: nil,
+            unit_price: nil
+          ]
+        }
+      }
+    end
+
+    context 'when the order update is successful' do
+      subject { put :update, params: valid_params }
+      it { is_expected.to have_http_status(:found) }
+    end
+
+    context 'when the order create is not successful' do
+      subject { put :update, params: invalid_params }
+      it { is_expected.to have_http_status(:ok) } # We're rendering #edit if the order update fails.
+    end
+  end
 end
