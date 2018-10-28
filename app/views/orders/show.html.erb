@@ -8,7 +8,12 @@
     <p>Created <%= @order.created_at %></p>
     <p>Shipped <%= @order.shipped_at %></p>
 
-    <%= link_to 'Back to Orders', orders_path %>
+    <% @order.line_items.each do |item| %>
+      <li><%= item.widget.name %>: <%= item.quantity %> @ $<%= item.unit_price %>/ea</li>
+    <% end %>
 
+    <p>
+      <%= link_to 'Back to Orders', orders_path %>
+    </p>
   </body>
 </html>
