@@ -22,14 +22,29 @@ RSpec.describe Order, type: :model do
       it { is_expected.to be_expedited }
     end
 
+    context 'when expedite is false' do
+      before { subject.settings(expedite: false) }
+      it { expect(subject.expedited?).to be(false) }
+    end
+
     context 'when returns is present' do
       before { subject.settings(returns: true) }
       it { is_expected.to be_returnable }
     end
 
+    context 'when returns is false' do
+      before { subject.settings(returns: false) }
+      it { expect(subject.returnable?).to be(false) }
+    end
+
     context 'when warehouse is present' do
       before { subject.settings(warehouse: true) }
       it { is_expected.to be_warehoused }
+    end
+
+    context 'when warehouse is false' do
+      before { subject.settings(warehouse: false) }
+      it { expect(subject.warehoused?).to be(false) }
     end
   end
 

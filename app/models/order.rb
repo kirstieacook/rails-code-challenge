@@ -14,9 +14,9 @@ class Order < ApplicationRecord
   end
 
   def settings(opts = {})
-    @expedite = opts[:expedite].presence
-    @returns = opts[:returns].presence
-    @warehouse = opts[:warehouse].presence
+    @expedite = opts[:expedite]
+    @returns = opts[:returns]
+    @warehouse = opts[:warehouse]
   end
 
   def shipped?
