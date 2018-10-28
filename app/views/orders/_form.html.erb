@@ -1,12 +1,22 @@
 <%= form_for @order do |f| %>
   <% if @order.errors.any? %>
-    <h2><%= pluralize(@order.errors.count, "error") %> prohibited this post from being saved:</h2>
-    <ul>
-      <% @order.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-  <% end %>
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <ul>
+        <% @order.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+  <h3>Line Items</h3>
+  <div id='line_items'>
+    <%= f.fields_for :line_items do |line_item| %>
+      <%= render 'line_item_fields', :f => line_item %>
+    <% end %>
+    <div class='links'>
+      <%= link_to_add_association 'Add Line Item', f, :line_items %>
+    </div>
+  </div>
 
   <p>
     <%= f.submit 'Submit Order' %>

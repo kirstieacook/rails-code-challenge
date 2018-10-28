@@ -1,0 +1,11 @@
+<div class='nested-fields'>
+  <%= f.select('widget_id', Widget.all.collect { |w| [ w.name, w.id ] }, { include_blank: 'Choose a Widget' }) %>
+
+  <%= f.label :unit_price %>
+  <%= f.number_field :unit_price %>
+
+  <%= f.label :quantity %>
+  <%= f.number_field :quantity %>
+  
+  <%= link_to_remove_association 'Remove Item', f %>
+</div>
