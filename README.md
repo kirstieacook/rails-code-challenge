@@ -17,6 +17,7 @@
 bundle install
 bundle exec rails db:create db:migrate db:seed
 bundle exec rspec
+rake ascii:print_art
 ```
 
 ## Submission
